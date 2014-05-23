@@ -48,8 +48,14 @@
               <td></td>
               <td align="left">
                 <select name="filter_manufacturer_id">
-                  <option value="">Marcas</option>
-                  <option value="1">Marcas</option>
+                  <option value="">Seleccione</option>
+                  <?php foreach ($manufacturers as $key => $value) { ?>
+                    <?php if($filter_manufacturer_id == $value['manufacturer_id']) : ?>
+                      <option value="<?php echo $value['manufacturer_id'];?>" selected="selected"><?php echo $value['name'];?></option>
+                    <?php else : ?>
+                      <option value="<?php echo $value['manufacturer_id'];?>"><?php echo $value['name'];?></option>
+                    <?php endif; ?>
+                  <?php } ?>
                 </select>
               </td>
               <td align="right"><a onclick="filter();" class="button">Filtrar</a></td>
@@ -63,7 +69,7 @@
                 <b><?php echo $color['name']; ?></b>
             </td>
             <td class="left"><img src="<?php echo $color['image']; ?>" /></td>
-            <td><?php echo $color['manufacturer_id'];?></td>
+            <td><?php echo $color['manufacturer_name'];?></td>
             <td class="right"><?php foreach ($color['action'] as $action) { ?>
               [ <a href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> ]
               <?php } ?></td>
@@ -99,7 +105,7 @@ function filter() {
     url += '&filter_code=' + encodeURIComponent(filter_code);
   }
   
-  var filter_manufacturer_id = $('input[name=\'filter_manufacturer_id\']').attr('value');
+  var filter_manufacturer_id = $('select[name=\'filter_manufacturer_id\']').attr('value');
   
   if (filter_manufacturer_id) {
     url += '&filter_manufacturer_id=' + encodeURIComponent(filter_manufacturer_id);
