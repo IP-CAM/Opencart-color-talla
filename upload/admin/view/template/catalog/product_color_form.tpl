@@ -42,7 +42,18 @@
 					</tr>
 					<tr>
 						<td>Manufacturer</td>
-						<td><input type="text" value="<?php echo $manufacturer_id;?>" name="manufacturer_id"></td>
+						<td>
+							<select name="manufacturer_id" id="">
+								<option value=""> - Seleccione - </option>
+								<?php foreach ($manufacturers as $key => $value) { ?>
+									<?php if($manufacturer_id==$value['manufacturer_id']): ?>
+										<option value="<?php echo $value['manufacturer_id'];?>" selected="selected"><?php echo $value['name'];?></option>
+									<?php else: ?>
+										<option value="<?php echo $value['manufacturer_id'];?>"><?php echo $value['name'];?></option>
+									<?php endif; ?>
+								<?php } ?>
+							</select>
+						</td>
 					</tr>
 				</tbody>
 			</table>

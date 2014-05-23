@@ -3,7 +3,7 @@ class ModelCatalogProductColor extends Model {
 
 	public function getColores($data){
 
-		$sql = "SELECT * from ".DB_PREFIX."colors c";
+		$sql = "SELECT c.code, c.name, c.image, c.manufacturer_id, m.name as manufacturer_name from ".DB_PREFIX."colors c JOIN ".DB_PREFIX."manufacturer m on m.manufacturer_id = c.manufacturer_id";
 
 		$sql .= " WHERE c.language_id = '" . (int)$this->config->get('config_language_id') . "'"; 
 
@@ -52,11 +52,12 @@ class ModelCatalogProductColor extends Model {
 		}
 
 		$query = $this->db->query($sql);
+
 		return $query->rows;
 	}
 
 	public function getColoresTotal($data = array()){
-		$sql = "SELECT COUNT(DISTINCT c.code) AS total FROM " . DB_PREFIX . "colors c WHERE c.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT COUNT(c.code) AS total FROM " . DB_PREFIX . "colors c WHERE c.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " AND c.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";

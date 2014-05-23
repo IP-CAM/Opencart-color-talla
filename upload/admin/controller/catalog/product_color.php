@@ -181,6 +181,9 @@ class ControllerCatalogProductColor extends Controller {
 		$this->data['copy'] 	= $this->url->link('catalog/product_color/copy', 	'token=' . $this->session->data['token'] . $url, 'SSL');	
 		$this->data['delete'] 	= $this->url->link('catalog/product_color/delete', 	'token=' . $this->session->data['token'] . $url, 'SSL');
     	
+    	$this->load->model('catalog/manufacturer');
+
+    	$this->data['manufacturers'] = $this->model_catalog_manufacturer->getManufacturers(array());
 		$this->data['products'] = array();
 
 		$data = array(
@@ -217,6 +220,7 @@ class ControllerCatalogProductColor extends Controller {
 				'name' 				=> $result['name'],
 				'image' 			=> $image,
 				'manufacturer_id' 	=> $result['manufacturer_id'],
+				'manufacturer_name' => $result['manufacturer_name'],
 				'action'     		=> $action,
 			);
     	}
@@ -334,11 +338,10 @@ class ControllerCatalogProductColor extends Controller {
       		'separator' => ' :: '
    		);
 
-   			echo '<pre style="background-color: #FFFFCB; color: #135092; margin:0px">'; 
-   				print_r($this->request->post); 
-   			echo '</pre>'; 
-   			//die();
-									
+		$this->load->model('catalog/manufacturer');
+
+    	$this->data['manufacturers'] = $this->model_catalog_manufacturer->getManufacturers(array());
+
 		if (!isset($this->request->get['code'])) {
 			$this->data['action'] = $this->url->link('catalog/product_color/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		} else {
@@ -418,6 +421,10 @@ class ControllerCatalogProductColor extends Controller {
 
     	if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 64)) {
       		$this->error['name'] = 'Nombre requerido';
+    	}
+
+    	if (  $this->request->post['manufacturer_id'] < 1) {
+      		$this->error['manufacturer_id'] = 'Marca Requerida';
     	}
 		
     	if (!$this->error) {
