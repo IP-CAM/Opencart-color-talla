@@ -33,9 +33,9 @@
                 <?php } ?></td>
               <td class="left"></td>
               <td class="left"><?php if ($sort == 'c.manufacturer_id') { ?>
-                <a href="<?php echo $sort_manufacturer_id; ?>" class="<?php echo strtolower($order); ?>">Marcas</a>
+                <a href="<?php echo $sort_manufacturer_id; ?>" class="<?php echo strtolower($order); ?>">Marca</a>
                 <?php } else { ?>
-                <a href="<?php echo $sort_manufacturer_id; ?>">Marcas</a>
+                <a href="<?php echo $sort_manufacturer_id; ?>">Marca</a>
                 <?php } ?></td>
               <td class="right">Acciones</td>
           </tr>
