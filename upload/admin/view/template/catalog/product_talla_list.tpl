@@ -8,7 +8,7 @@
    
   <div class="box">
     <div class="heading">
-      <h1><img src="view/image/category.png" alt="" /> Colores</h1>
+      <h1><img src="view/image/category.png" alt="" /> Tallas</h1>
       <div class="buttons">
         <a onclick="location = '<?php echo $insert; ?>'" class="button"><span>Insertar</span></a>
         <a onclick="$('form').submit();" class="button"><span>Eliminar</span></a>
