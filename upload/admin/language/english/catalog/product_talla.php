@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']          = 'Colores'; 
+$_['heading_title']          = 'Tallas'; 
 
 // Text  
 $_['text_success']           = 'Success: You have modified products!';
