@@ -21,21 +21,26 @@
         <thead>
           <tr>
               <td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>
-              <td class="left"><?php if ($sort == 'c.code') { ?>
+              <td class="left"><?php if ($sort == 't.talla_id') { ?>
                 <a href="<?php echo $sort_code; ?>" class="<?php echo strtolower($order); ?>">Código</a>
                 <?php } else { ?>
                 <a href="<?php echo $sort_code; ?>">Código</a>
                 <?php } ?></td>
-              <td class="left"><?php if ($sort == 'c.name') { ?>
+              <td class="left"><?php if ($sort == 't.name') { ?>
                 <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>">Nombre</a>
                 <?php } else { ?>
                 <a href="<?php echo $sort_name; ?>">Nombre</a>
                 <?php } ?></td>
-              <td class="left"></td>
-              <td class="left"><?php if ($sort == 'c.manufacturer_id') { ?>
-                <a href="<?php echo $sort_manufacturer_id; ?>" class="<?php echo strtolower($order); ?>">Marca</a>
+
+              <td class="left"><?php if ($sort == 't.type') { ?>
+                <a href="<?php echo $sort_type; ?>" class="<?php echo strtolower($order); ?>">Tipo</a>
                 <?php } else { ?>
-                <a href="<?php echo $sort_manufacturer_id; ?>">Marca</a>
+                <a href="<?php echo $sort_type; ?>">Tipo</a>
+                <?php } ?></td>
+              <td class="left"><?php if ($sort == 'c.sort_order') { ?>
+                <a href="<?php echo $sort_sort_order; ?>" class="<?php echo strtolower($order); ?>">Orden</a>
+                <?php } else { ?>
+                <a href="<?php echo $sort_sort_order; ?>">Orden</a>
                 <?php } ?></td>
               <td class="right">Acciones</td>
           </tr>
@@ -46,31 +51,20 @@
               <td width="20"><input type="text" name="filter_code" value="<?php echo $filter_code; ?>" /></td>
               <td><input type="text" name="filter_name" value="<?php echo $filter_name; ?>" /></td>
               <td></td>
-              <td align="left">
-                <select name="filter_manufacturer_id">
-                  <option value="">Seleccione</option>
-                  <?php foreach ($manufacturers as $key => $value) { ?>
-                    <?php if($filter_manufacturer_id == $value['manufacturer_id']) : ?>
-                      <option value="<?php echo $value['manufacturer_id'];?>" selected="selected"><?php echo $value['name'];?></option>
-                    <?php else : ?>
-                      <option value="<?php echo $value['manufacturer_id'];?>"><?php echo $value['name'];?></option>
-                    <?php endif; ?>
-                  <?php } ?>
-                </select>
-              </td>
+              <td></td>
               <td align="right"><a onclick="filter();" class="button">Filtrar</a></td>
             </tr>
-          <?php if ($colores) { ?>
-          <?php foreach ($colores as $color) { ?>
+          <?php if ($tallas) { ?>
+          <?php foreach ($tallas as $talla) { ?>
           <tr>
-            <td><input type="checkbox" name="selected[]" value="<?php echo $color['code']; ?>" /></td>
-            <td width="20"><?php echo $color['code'];?></td>
+            <td><input type="checkbox" name="selected[]" value="<?php echo $talla['talla_id']; ?>" /></td>
+            <td width="20"><?php echo $talla['talla_id'];?></td>
             <td class="left">
-                <b><?php echo $color['name']; ?></b>
+                <b><?php echo $talla['name']; ?></b>
             </td>
-            <td class="left"><img src="<?php echo $color['image']; ?>" /></td>
-            <td><?php echo $color['manufacturer_name'];?></td>
-            <td class="right"><?php foreach ($color['action'] as $action) { ?>
+            <td><?php echo $talla['type'];?></td>
+            <td><?php echo $talla['sort_order'];?></td>
+            <td class="right"><?php foreach ($talla['action'] as $action) { ?>
               [ <a href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> ]
               <?php } ?></td>
           </tr>
@@ -91,7 +85,7 @@
 
 <script type="text/javascript">
 function filter() {
-  url = 'index.php?route=catalog/product_color&token=<?php echo $token; ?>';
+  url = 'index.php?route=catalog/product_talla&token=<?php echo $token; ?>';
   
   var filter_name = $('input[name=\'filter_name\']').attr('value');
   
@@ -129,9 +123,6 @@ function filter() {
     		}
     	});
     });
-    // $(document).ready(function() {
-    //     $('#datatable').dataTable({"iDisplayLength": 25});
-    // });
   </script>
 
 <?php echo $footer; ?>
