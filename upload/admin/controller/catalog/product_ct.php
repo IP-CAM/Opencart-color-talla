@@ -172,7 +172,7 @@ class ControllerCatalogProductCt extends Controller {
 		$option_total = $this->model_catalog_product_ct->getTotalOptions();
 
 		$results = $this->model_catalog_product_ct->getOptions($data);
-		
+
 		foreach ($results as $result) {
 			$action = array();
 
@@ -393,6 +393,7 @@ class ControllerCatalogProductCt extends Controller {
 		$this->data['option_values'] = array();
 
 		foreach ($option_values as $option_value) {
+
 			if ($option_value['image'] && file_exists(DIR_IMAGE . $option_value['image'])) {
 				$image = $option_value['image'];
 			} else {
