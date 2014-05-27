@@ -583,12 +583,12 @@
               <tbody id="option-value-row<?php echo $option_value_row_ct; ?>">
                 <tr>
                   <td class="left"><select name="product_option[<?php echo $option_row_ct; ?>][product_option_value][<?php echo $option_value_row_ct; ?>][option_value_id]">
-                      <?php if (isset($option_values[$product_option['option_id']])) { ?>
-                      <?php foreach ($option_values[$product_option['option_id']] as $option_value) { ?>
+                      <?php if (isset($option_values_ct[$product_option['option_id']])) { ?>
+                      <?php foreach ($option_values_ct[$product_option['option_id']] as $option_value) { ?>
                       <?php if ($option_value['option_value_id'] == $product_option_value['option_value_id']) { ?>
-                      <option value="<?php echo $option_value['option_value_id']; ?>" selected="selected"><?php echo $option_value['name']; ?></option>
+                      <option value="<?php echo $option_value['option_value_id']; ?>" selected="selected"><?php echo $option_value['barcode']; ?> | <?php echo $option_value['name']; ?></option>
                       <?php } else { ?>
-                      <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['name']; ?></option>
+                      <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['barcode']; ?> | <?php echo $option_value['name']; ?></option>
                       <?php } ?>
                       <?php } ?>
                       <?php } ?>
@@ -655,10 +655,10 @@
                 </tr>
               </tfoot>
             </table>
-            <select id="option-values<?php echo $option_row_ct; ?>" style="display: none;">
-              <?php if (isset($option_values[$product_option['option_id']])) { ?>
-              <?php foreach ($option_values[$product_option['option_id']] as $option_value) { ?>
-              <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['name']; ?></option>
+            <select id="option-values_ct<?php echo $option_row_ct; ?>" style="display: none;">
+              <?php if (isset($option_values_ct[$product_option['option_id']])) { ?>
+              <?php foreach ($option_values_ct[$product_option['option_id']] as $option_value) { ?>
+              <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['barcode']; ?> | <?php echo $option_value['name']; ?></option>
               <?php } ?>
               <?php } ?>
             </select>
@@ -1360,7 +1360,7 @@ function addOptionValueCT(option_row) {
 	html  = '<tbody id="option-value-row' + option_value_row_ct + '">';
 	html += '  <tr>';
 	html += '    <td class="left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row_ct + '][option_value_id]">';
-	html += $('#option-values' + option_row).html();
+	html += $('#option-values_ct' + option_row).html();
 	html += '    </select><input type="hidden" name="product_option[' + option_row + '][product_option_value][' + option_value_row_ct + '][product_option_value_id]" value="" /></td>';
 	html += '    <td class="right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row_ct + '][quantity]" value="" size="3" /></td>'; 
 	html += '    <td class="left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row_ct + '][subtract]">';
@@ -1577,7 +1577,8 @@ $('input[name=\'option_ct\']').catcomplete({
             label: item.name,
             value: item.option_id,
             type: item.type,
-            option_value: item.option_value
+            option_value: item.option_value,
+            barcode: item.barcode
           }
         }));
       }
@@ -1622,7 +1623,7 @@ $('input[name=\'option_ct\']').catcomplete({
       html += '  </table>';
       html += '  <select id="option-values' + option_row_ct + '" style="display: none;">';
             for (i = 0; i < ui.item.option_value.length; i++) {
-        html += '  <option value="' + ui.item.option_value[i]['option_value_id'] + '">' + ui.item.option_value[i]['name'] + '</option>';
+        html += '  <option value="' + ui.item.option_value[i]['option_value_id'] + '">' + ui.item.option_value[i]['barcode'] + ' | ' + ui.item.option_value[i]['name'] + '</option>';
             }
       html += '  </select>';      
       html += '</div>'; 
@@ -1653,7 +1654,5 @@ $('input[name=\'option_ct\']').catcomplete({
    }
 });
 //--></script>
-
-
 
 <?php echo $footer; ?>
