@@ -172,7 +172,7 @@ class ControllerCatalogProductCt extends Controller {
 		$option_total = $this->model_catalog_product_ct->getTotalOptions();
 
 		$results = $this->model_catalog_product_ct->getOptions($data);
-
+		
 		foreach ($results as $result) {
 			$action = array();
 
@@ -663,8 +663,10 @@ class ControllerCatalogProductCt extends Controller {
 
 	public function option_form(){
 		
-
 		$this->load->model('tool/image');
+		$this->load->model('catalog/product');
+		$this->load->model('catalog/product_color');
+		$this->load->model('catalog/product_talla');
 
 		$this->data['heading_title'] = 'Nueva Opción de Compra';
 
@@ -789,27 +791,36 @@ class ControllerCatalogProductCt extends Controller {
 
 		if (isset($this->request->post['color_id'])) {
 			$this->data['color_id'] = $this->request->post['color_id'];
+			$this->data['color_name'] = $this->request->post['color_name'];
 		} elseif (!empty($option_info)) {
 			$this->data['color_id'] = $option_info['color_id'];
+			$this->data['color_name'] = $this->model_catalog_product_color->getColor($option_info['color_id']);
 		} else {
 			$this->data['color_id'] = '';
+			$this->data['color_name'] = '';
 		}
 
 
 		if (isset($this->request->post['talla_id'])) {
-			$this->data['talla_id'] = $this->request->post['talla_id'];
+			$this->data['talla_id'] 	= $this->request->post['talla_id'];
+			$this->data['talla_name'] 	= $this->request->post['talla_id'];
 		} elseif (!empty($option_info)) {
-			$this->data['talla_id'] = $option_info['talla_id'];
+			$this->data['talla_id'] 	= $option_info['talla_id'];
+			$this->data['talla_name'] 	= $this->model_catalog_product_talla->getInfo($option_info['talla_id']);
 		} else {
-			$this->data['talla_id'] = '';
+			$this->data['talla_id'] 	= '';
+			$this->data['talla_name'] 	= '';
 		}
 
 		if (isset($this->request->post['product_id'])) {
-			$this->data['product_id'] = $this->request->post['product_id'];
+			$this->data['product_id']   = $this->request->post['product_id'];
+			$this->data['product_name'] = $this->request->post['product_name'];
 		} elseif (!empty($option_info)) {
-			$this->data['product_id'] = $option_info['product_id'];
+			$this->data['product_id'] 	= $option_info['product_id'];
+			$this->data['product_name'] = $this->model_catalog_product->getProduct($option_info['product_id']);
 		} else {
 			$this->data['product_id'] = '';
+			$this->data['product_name'] = '';
 		}
 
 
@@ -820,8 +831,6 @@ class ControllerCatalogProductCt extends Controller {
 		} else {
 			$option_values = array();
 		}
-
-	
 
 		$this->data['option_values'] = array();
 

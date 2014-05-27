@@ -198,7 +198,8 @@ class ModelCatalogProductCt extends Model {
 	public function getOptionValueDescriptions($option_id) {
 		$option_value_data = array();
 
-		$sql = "SELECT * FROM " . DB_PREFIX . "option_value ov JOIN " . DB_PREFIX . "option_value_color_talla ovct ON ovct.option_value_id = ov.option_value_id WHERE option_id = '" . (int)$option_id . "'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "option_value ov JOIN " . DB_PREFIX . "option_value_color_talla ovct ON ovct.option_value_id = ov.option_value_id 
+				LEFT OUTER JOIN " . DB_PREFIX . "colors c ON ovct.color_id = c.`code` WHERE option_id = '" . (int)$option_id . "'";
 		$option_value_query = $this->db->query($sql);
 
 		foreach ($option_value_query->rows as $option_value) {
@@ -207,6 +208,7 @@ class ModelCatalogProductCt extends Model {
 				'barcode'	  => $option_value['barcode'],
 				'sku'		  => $option_value['sku'],
 				'color_id'	  => $option_value['color_id'],
+				'color_name'  => $option_value['name'],
 				'talla_id'	  => $option_value['talla_id'],
 				'product_id'  => $option_value['product_id'],
 			);

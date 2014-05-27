@@ -72,7 +72,7 @@
                 <?php } ?>
                 <?php } ?></td>
               <td class="left"><img src="<?php echo $option_value['thumb']; ?>" alt="" id="thumb<?php echo $option_value_row; ?>" /></td>
-              <td class="left"><?php echo $option_value['option_value_color_talla']['color_id']; ?></td>
+              <td class="left"><?php echo $option_value['option_value_color_talla']['color_name']; ?></td>
               <td class="left"><?php echo $option_value['option_value_color_talla']['talla_id']; ?></td>
               <td class="left"><?php echo $option_value['option_value_color_talla']['barcode']; ?></td>
               <td class="right"><?php echo $option_value['sort_order']; ?></td>

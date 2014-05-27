@@ -1425,6 +1425,7 @@ class ControllerCatalogProduct extends Controller {
 				$json[] = array(
 					'product_id' => $result['product_id'],
 					'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),	
+					'sku'       => strip_tags(html_entity_decode($result['sku'], ENT_QUOTES, 'UTF-8')),	
 					'model'      => $result['model'],
 					'option'     => $option_data,
 					'price'      => $result['price']
