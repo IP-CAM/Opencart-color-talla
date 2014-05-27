@@ -69,6 +69,7 @@ $(document).ready(function(){
           <li><a class="parent"><?php echo $text_product;?></a>
             <ul>
               <li><a href="<?php echo $product; ?>"><?php echo $text_product; ?></a></li>
+              <li><a href="<?php echo $option_color_talla; ?>">Opciones de Compra</a></li>
               <li><a href="<?php echo $product_color; ?>">Colores</a></li>
               <li><a href="<?php echo $product_talla; ?>">Tallas</a></li>
             </ul>

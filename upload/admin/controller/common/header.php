@@ -233,8 +233,9 @@ class ControllerCommonHeader extends Controller {
 			}		
 
 			//Custom
-			$this->data['product_color'] = $this->url->link('catalog/product_color', 'token=' . $this->session->data['token'], 'SSL');
-			$this->data['product_talla'] = $this->url->link('catalog/product_talla', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['product_color'] 		= $this->url->link('catalog/product_color', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['product_talla'] 		= $this->url->link('catalog/product_talla', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['option_color_talla'] 	= $this->url->link('catalog/product_ct', 	'token=' . $this->session->data['token'], 'SSL');
 		}
 
 		$this->template = 'common/header.tpl';
