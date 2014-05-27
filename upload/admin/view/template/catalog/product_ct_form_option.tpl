@@ -71,22 +71,31 @@
 
           <tr>
             <td>SKU</td>
-            <td><input type="text" name="sku" value="<?php echo $sku;?>"/></td>
+            <td><input type="text" name="sku" value="<?php echo $sku;?>" readonly="readonly"/></td>
           </tr>  
 
           <tr>
             <td>Color</td>
-            <td><input type="text" name="color_id" value="<?php echo $color_id;?>"/></td>
+            <td>
+                <input type="text" name="color_name" value="<?php echo isset($color_name['name'])?$color_name['name']:'';?>"/>
+                <input type="hidden" name="color_id" value="<?php echo $color_id;?>"/>
+            </td>
           </tr> 
 
           <tr>
             <td>Talla</td>
-            <td><input type="text" name="talla_id" value="<?php echo $talla_id;?>"/></td>
+            <td>
+                <input type="text" name="talla_name" value="<?php echo isset($talla_name['name'])?$talla_name['name']:'';?>"/>
+                <input type="hidden" name="talla_id" value="<?php echo $talla_id;?>"/>
+            </td>
           </tr> 
 
           <tr>
             <td>Producto</td>
-            <td><input type="text" name="product_id" value="<?php echo $product_id;?>"/></td>
+            <td>
+              <input type="text" name="product_name" value="<?php echo isset($product_name['name'])?$product_name['name']:'';?>"/>
+              <input type="hidden" name="product_id" value="<?php echo $product_id;?>"/>
+            </td>
           </tr>  
 
           <?php $option_value_row = 0; ?>
@@ -124,12 +133,88 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name=\'type\']').bind('change', function() {
-	if (this.value == 'select' || this.value == 'radio' || this.value == 'checkbox' || this.value == 'image') {
-		$('#option-value').show();
-	} else {
-		$('#option-value').hide();
-	}
+$('input[name=\'product_name\']').autocomplete({
+  delay: 500,
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/product/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request.term),
+      dataType: 'json',
+      success: function(json) {   
+        response($.map(json, function(item) {
+          return {
+            label: item.name,
+            value: item.product_id,
+            sku : item.sku
+          }
+        }));
+      }
+    });
+  }, 
+  select: function(event, ui) {
+    $('input[name=\'product_id\']').val(ui.item.value);
+    $('input[name=\'product_name\']').val(ui.item.label);
+    $('input[name=\'sku\']').val(ui.item.sku);
+    return false;
+  },
+  focus: function(event, ui) {
+        return false;
+    }
+});
+
+
+$('input[name=\'color_name\']').autocomplete({
+  delay: 500,
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/product_color/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request.term),
+      dataType: 'json',
+      success: function(json) {   
+        response($.map(json, function(item) {
+          return {
+            label: item.name,
+            value: item.code
+          }
+        }));
+      }
+    });
+  }, 
+  select: function(event, ui) {
+    $('input[name=\'color_id\']').val(ui.item.value);
+    $('input[name=\'color_name\']').val(ui.item.label);
+            
+    return false;
+  },
+  focus: function(event, ui) {
+        return false;
+    }
+});
+
+
+$('input[name=\'talla_name\']').autocomplete({
+  delay: 500,
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/product_talla/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request.term),
+      dataType: 'json',
+      success: function(json) {   
+        response($.map(json, function(item) {
+          return {
+            label: item.name,
+            value: item.talla_id
+          }
+        }));
+      }
+    });
+  }, 
+  select: function(event, ui) {
+    $('input[name=\'talla_id\']').val(ui.item.value);
+    $('input[name=\'talla_name\']').val(ui.item.label);
+            
+    return false;
+  },
+  focus: function(event, ui) {
+        return false;
+    }
 });
 
 //--></script> 
