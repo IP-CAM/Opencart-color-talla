@@ -172,7 +172,7 @@ class ControllerCatalogProductTalla extends Controller {
    		);
 
    		$this->data['breadcrumbs'][] = array(
-       		'text'      => 'Colores',
+       		'text'      => 'Tallas',
 			'href'      => $this->url->link('catalog/product_talla', 'token=' . $this->session->data['token'] . $url, 'SSL'),       		
       		'separator' => ' :: '
    		);

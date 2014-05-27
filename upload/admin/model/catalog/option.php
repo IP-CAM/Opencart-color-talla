@@ -71,6 +71,8 @@ class ModelCatalogOption extends Model {
 			$sql .= " AND od.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
+		$sql .= " AND o.type != 'select_ct'";
+
 		$sort_data = array(
 			'od.name',
 			'o.type',
