@@ -1109,7 +1109,7 @@ class ControllerCatalogProduct extends Controller {
 			$product_options = $this->model_catalog_product->getProductOptions($this->request->get['product_id']);			
 		} else {
 			$product_options = array();
-		}			
+		}		
 
 		$this->data['product_options'] = array();
 
@@ -1140,7 +1140,7 @@ class ControllerCatalogProduct extends Controller {
 					'type'                 => $product_option['type'],
 					'required'             => $product_option['required']
 				);				
-			} else {
+			} else if($product_option['type'] != 'select_ct') { //Todo menos los color talla
 				$this->data['product_options'][] = array(
 					'product_option_id' => $product_option['product_option_id'],
 					'option_id'         => $product_option['option_id'],
@@ -1160,8 +1160,63 @@ class ControllerCatalogProduct extends Controller {
 					$this->data['option_values'][$product_option['option_id']] = $this->model_catalog_option->getOptionValues($product_option['option_id']);
 				}
 			}
+		} //End Options
+
+
+
+		// Options - Color Talla
+		$this->load->model('catalog/product_ct');
+
+		if (isset($this->request->post['product_option_ct'])) {
+			$product_options_ct = $this->request->post['product_option_ct'];
+		} elseif (isset($this->request->get['product_id'])) {
+			$product_options_ct = $this->model_catalog_product->getProductOptionsCT($this->request->get['product_id']);			
+		} else {
+			$product_options_ct = array();
+		}		
+
+		$this->data['product_options_ct'] = array();
+
+		foreach ($product_options_ct as $product_option) {
+			if ($product_option['type'] == 'select_ct') {
+				$product_option_value_data = array();
+
+				foreach ($product_option['product_option_value'] as $product_option_value) {
+					$product_option_value_data[] = array(
+						'product_option_value_id' => $product_option_value['product_option_value_id'],
+						'option_value_id'         => $product_option_value['option_value_id'],
+						'quantity'                => $product_option_value['quantity'],
+						'subtract'                => $product_option_value['subtract'],
+						'price'                   => $product_option_value['price'],
+						'price_prefix'            => $product_option_value['price_prefix'],
+						'points'                  => $product_option_value['points'],
+						'points_prefix'           => $product_option_value['points_prefix'],						
+						'weight'                  => $product_option_value['weight'],
+						'weight_prefix'           => $product_option_value['weight_prefix']	
+					);
+				}
+
+				$this->data['product_options_ct'][] = array(
+					'product_option_id'    => $product_option['product_option_id'],
+					'product_option_value' => $product_option_value_data,
+					'option_id'            => $product_option['option_id'],
+					'name'                 => $product_option['name'],
+					'type'                 => $product_option['type'],
+					'required'             => $product_option['required']
+				);				
+		 	}
 		}
 
+		$this->data['option_values_ct'] = array();
+
+		foreach ($this->data['product_options_ct'] as $product_option) {
+			if ($product_option['type'] == 'select_ct') {
+				if (!isset($this->data['option_values_ct'][$product_option['option_id']])) {
+					$this->data['option_values_ct'][$product_option['option_id']] = $this->model_catalog_product_ct->getOptionValues($product_option['option_id']);
+				}
+			}
+		} //End Options
+			
 		$this->load->model('sale/customer_group');
 
 		$this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();

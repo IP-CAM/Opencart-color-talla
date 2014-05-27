@@ -516,7 +516,7 @@ class ControllerCatalogProductCt extends Controller {
 			foreach ($options as $option) {
 				$option_value_data = array();
 
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+				if ($option['type'] == 'select_ct' ) {
 					$option_values = $this->model_catalog_product_ct->getOptionValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
@@ -528,6 +528,7 @@ class ControllerCatalogProductCt extends Controller {
 
 						$option_value_data[] = array(
 							'option_value_id' => $option_value['option_value_id'],
+							'barcode' 		  => $option_value['barcode'],
 							'name'            => html_entity_decode($option_value['name'], ENT_QUOTES, 'UTF-8'),
 							'image'           => $image					
 						);
@@ -546,6 +547,10 @@ class ControllerCatalogProductCt extends Controller {
 
 				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
 					$type = $this->language->get('text_choose');
+				}
+
+				if ($option['type'] == 'select_ct' ) {
+					$type = 'Color - Talla';
 				}
 
 				if ($option['type'] == 'text' || $option['type'] == 'textarea') {
