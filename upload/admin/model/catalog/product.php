@@ -158,6 +158,7 @@ class ModelCatalogProduct extends Model {
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_option WHERE product_id = '" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_option_value WHERE product_id = '" . (int)$product_id . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "option_value_color_talla set product_id = '0', sku = '' WHERE product_id = '" . (int)$product_id . "'");
 
 		if (isset($data['product_option'])) {
 			foreach ($data['product_option'] as $product_option) {
@@ -168,9 +169,11 @@ class ModelCatalogProduct extends Model {
 
 					if (isset($product_option['product_option_value'])  && count($product_option['product_option_value']) > 0 ) {
 						foreach ($product_option['product_option_value'] as $product_option_value) {
+							// $info = $this->getOptionValueColorTalla($product_option_value['option_value_id']);
 							$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+							$this->db->query("UPDATE ". DB_PREFIX . "option_value_color_talla set product_id = '".(int)$product_id."', sku = '".$data['sku']."' where option_value_id = '".(int)$product_option_value['option_value_id']."'");
 						}
-					}else{
+					} else {
 						$this->db->query("DELETE FROM " . DB_PREFIX . "product_option WHERE product_option_id = '".$product_option_id."'");
 					}
 				} else { 
@@ -264,7 +267,12 @@ class ModelCatalogProduct extends Model {
 		}
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_profile` WHERE product_id = " . (int)$product_id);		if (isset($data['product_profiles'])) {			foreach ($data['product_profiles'] as $profile) {				$this->db->query("INSERT INTO `" . DB_PREFIX . "product_profile` SET `product_id` = " . (int)$product_id . ", customer_group_id = " . (int)$profile['customer_group_id'] . ", `profile_id` = " . (int)$profile['profile_id']);			}		}		$this->cache->delete('product');
-		die;
+	}
+
+	public function getOptionValueColorTalla($option_value_id){
+		$sql = "SELECT * from " . DB_PREFIX . "option_value_color_talla where option_value_id = '".(int)$option_value_id."'";
+		$query = $this->db->query($sql);
+		return $query->row;
 	}
 
 	public function copyProduct($product_id) {

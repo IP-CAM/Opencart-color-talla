@@ -141,6 +141,7 @@ $('input[name=\'product_name\']').autocomplete({
       dataType: 'json',
       success: function(json) {   
         response($.map(json, function(item) {
+          console.log(item);
           return {
             label: item.name,
             value: item.product_id,

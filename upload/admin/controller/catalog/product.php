@@ -1213,6 +1213,7 @@ class ControllerCatalogProduct extends Controller {
 			if ($product_option['type'] == 'select_ct') {
 				if (!isset($this->data['option_values_ct'][$product_option['option_id']])) {
 					$this->data['option_values_ct'][$product_option['option_id']] = $this->model_catalog_product_ct->getOptionValues($product_option['option_id']);
+					$this->data['option_values_ct_uniques'][$product_option['option_id']] = $this->model_catalog_product_ct->getOptionValues($product_option['option_id'], TRUE);
 				}
 			}
 		} //End Options
@@ -1397,7 +1398,14 @@ class ControllerCatalogProduct extends Controller {
 	}
 
 	public function autocomplete() {
-		$json = array();
+		$json[] = array(
+			'product_id' => 0,
+			'name'       => strip_tags(html_entity_decode('-- Ninguno --', ENT_QUOTES, 'UTF-8')),	
+			'sku'        => strip_tags(html_entity_decode('', ENT_QUOTES, 'UTF-8')),	
+			'model'      => '',
+			'option'     => array(),
+			'price'      => 0
+		);
 
 		if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model']) || isset($this->request->get['filter_category_id'])) {
 			$this->load->model('catalog/product');
@@ -1480,7 +1488,7 @@ class ControllerCatalogProduct extends Controller {
 				$json[] = array(
 					'product_id' => $result['product_id'],
 					'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),	
-					'sku'       => strip_tags(html_entity_decode($result['sku'], ENT_QUOTES, 'UTF-8')),	
+					'sku'        => strip_tags(html_entity_decode($result['sku'], ENT_QUOTES, 'UTF-8')),	
 					'model'      => $result['model'],
 					'option'     => $option_data,
 					'price'      => $result['price']

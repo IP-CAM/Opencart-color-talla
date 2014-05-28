@@ -343,7 +343,7 @@ class ControllerProductProduct extends Controller {
 			$this->data['options'] = array();
 
 			foreach ($this->model_catalog_product->getProductOptions($this->request->get['product_id']) as $option) {
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+				if ($option['type'] == 'select' || $option['type'] == 'select_ct' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
 					$option_value_data = array();
 
 					foreach ($option['option_value'] as $option_value) {
@@ -391,6 +391,97 @@ class ControllerProductProduct extends Controller {
 				$this->data['minimum'] = 1;
 			}
 
+			//Colores Tallas
+
+			switch ($this->config->get('config_store_id')) {
+				case '0': $colores_dim = array(74,53); $colores_dim_mini = array(60,60); break;
+				case '1': $colores_dim = array(68,68); $colores_dim_mini = array(60,60); break;
+				case '2': $colores_dim = array(50,50); $colores_dim_mini = array(60,60); break;
+				case '4': $colores_dim = array(30,30); $colores_dim_mini = array(33,33); break;
+				default:  $colores_dim = array(74,53); $colores_dim_mini = array(60,60); break;
+			}
+
+			$this->data['colores'] = array();
+			$this->data['images'] = array();
+			$imagenes_adicionales = array();
+			$precio_talla_special = 0;
+			$colores 			= $this->model_catalog_product->getColoresByProduct($this->request->get['product_id'], $product_info['manufacturer_id']);
+
+			// $product_option_id 	= $this->model_catalog_product->getOptionID($product_info['product_id']);4
+			$product_option_id = 0;
+			if(isset($this->data['options'][0]))
+				$product_option_id 	= $this->data['options'][0];
+
+			foreach ($colores as $key => $color) {
+
+				$tallas = $this->model_catalog_product->getSizes($product_info['product_id'],$color['color_id'], $product_info['upc'], $product_option_id['option_id']);
+ 				
+ 				$stock_color = 0;
+				$precio_talla = 0;
+
+				foreach ($tallas as $key_size => $talla) {
+					$precio_talla 			= $talla['price'];
+					$precio_talla_special 	= $talla['special'];
+					switch ($this->config->get('config_store_id')) {
+						case '0':
+							$tallas[$key_size]['equivalent'] = $talla['equivalencia'];
+							break;
+						
+						default:
+							$tallas[$key_size]['equivalent'] = ((int)$talla['talla_usa']/10);
+							break;
+					}
+					$stock_color += abs($talla['quantity']);
+				}
+
+				if(!$precio_talla) {
+					$precio_talla = $product_info['price'];
+				}; //si la talla no tiene precio, Trae el precio del producto padre
+				$this->data['colores'][] = array(
+				    'product_id' 		 => $product_info['product_id'],
+				    'color_id' 			 => $color['color_id'],
+				    'product_code_forus' => '',
+				    'name'				 => $color['name']?$color['name']:$color['color_id'],
+				    'image' 			 => $this->model_tool_image->resize($color['image'], $colores_dim[0],$colores_dim[1]),
+				    'image_thumb' 		 => $this->model_tool_image->resize($color['image'], $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height')),
+				    'image_popup' 		 => $this->model_tool_image->resize($color['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
+				    'image_mini' 		 => $this->model_tool_image->resize($color['mini'],  $colores_dim_mini[0],$colores_dim_mini[1] ),
+				    'tallas'			 => $tallas,
+				    'price'				 => $this->currency->format($product_info['price']),
+				    'price-color'		 => $this->currency->format($precio_talla),
+				    'price-special'		 => $this->currency->format($precio_talla_special),
+				    'has_special'		 => ($precio_talla_special?1:0),
+				    'stock_color'		 => $stock_color
+				);
+
+				for ($i=1; $i < 8; $i++) {
+
+					$imagen = substr($color['image'], 0,  -5) . $i . ".jpg";
+
+					$image_details = explode('/', $imagen );
+					$image_details = array_reverse($image_details);
+					$image_details = explode('_', $image_details[0]);
+					$imagenes_adicionales[] = array(
+						'popup' 	 => $this->model_tool_image->resize($imagen, $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
+						'thumb' 	 => $this->model_tool_image->resize($imagen, $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height')),
+						'medium' 	 => $this->model_tool_image->resize($imagen, $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height')),
+						'sku'	 	 => $image_details[0],
+						'color'	 	 => $image_details[1],
+						'sort_order' => $i
+					);
+				}
+			}
+
+			foreach ($imagenes_adicionales as $key => $value) {
+				if( strpos($value['popup'],'empty-product') ){
+					unset($imagenes_adicionales[$key]);
+				}
+			}
+
+			$this->data['images'] = $imagenes_adicionales;
+ 			$this->data['sale_image'] = $this->model_tool_image->resize('data/sale_'.$this->config->get('config_store_id').'.png',25,25);
+
+			//End Colores - Tallas
 			$this->data['review_status'] = $this->config->get('config_review_status');
 			$this->data['reviews'] = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
 			$this->data['rating'] = (int)$product_info['rating'];

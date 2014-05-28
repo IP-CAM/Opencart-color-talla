@@ -76,7 +76,47 @@
       <div class="options">
         <h2><?php echo $text_option; ?></h2>
         <br />
+
+        <!-- START COLORES -->
+        <div class="colors">
+          <?php foreach ($colores as $key => $color) : ?>
+            <div class="img">
+              <?php if($color['has_special']): ?>
+                <img src="<?php echo $sale_image;?>" alt="" style="position:absolute; pointer-events:none;">
+              <?php endif; ?>
+              <!-- <a href="<?php echo $color['image_popup'];?>" rel="zoom-id:Zoomer;show-title:false;" title="<?php echo $heading_title;?> - <?php echo $color['name'];?>" rev="<?php echo $color['image_thumb'];?>" style="outline: 0px;"> -->
+              <a rel="zoom-id:Zoomer;show-title:false;" title="<?php echo $heading_title;?> - <?php echo $color['name'];?>" rev="<?php echo $color['image_thumb'];?>" style="outline: 0px;">
+                <img <?php echo (!$key?'id="first_color"':'');?> src="<?php echo $color['image']; ?>" title="<?php echo $heading_title." - ". $color['name']; ?>" alt="<?php echo $heading_title." - ". $color['name']; ?>" onclick="javascript:changeColor('<?php echo $color['color_id'];?>','<?php echo $color['name']; ?>','<?php echo $color['price'];?>','<?php echo $color['price-color'];?>','<?php echo $color['price-special'];?>',this,'<?php echo $color['product_code_forus'];?>');" class="color" color-name="<?php echo $color['name'];?>">
+              </a>
+            </div>
+          <?php endforeach; ?>
+          <div class="clear"></div>
+        </div>
+        <!-- END COLORES -->
+
+
         <?php foreach ($options as $option) { ?>
+        <?php if ($option['type'] == 'select_ct') { ?>
+            <div class="tallas">
+              <div id="option-<?php echo $option['product_option_id']; ?>" class="option alpha">
+                <input type="hidden" value="" name="option[<?php echo $option['product_option_id']; ?>]" id="option_selected">
+                <ul class="tallas">
+                  <?php
+                    foreach ($colores as $color) { ?>
+                      <?php foreach ($color['tallas'] as $key => $talla) { 
+                          $class = ($talla['quantity']>0?'talla':'talla nostock');
+                        ?>
+                        <li value="<?php echo $talla['option_value_id'];?>" equivalent="<?php echo $talla['equivalent'];?>" color="<?php echo $talla['color_id'];?>" class="hide <?php echo $class;?>"><a><?php echo $talla['name'];?></a>
+                        </li>
+                      <?php }
+                    }
+                  ?>
+                </ul>
+              </div>
+            </div>
+          <?php } ?>
+    
+
         <?php if ($option['type'] == 'select') { ?>
         <div id="option-<?php echo $option['product_option_id']; ?>" class="option">
           <?php if ($option['required']) { ?>
@@ -512,4 +552,11 @@ $(document).ready(function() {
 	$('.time').timepicker({timeFormat: 'h:m'});
 });
 //--></script> 
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    changeColor('<?php echo $colores[0]["color_id"];?>','<?php echo $colores[0]["name"];?>','<?php echo $colores[0]["price"];?>','<?php echo $colores[0]["price-color"];?>','<?php echo $colores[0]["price-special"];?>','');
+  });
+</script>
 <?php echo $footer; ?>

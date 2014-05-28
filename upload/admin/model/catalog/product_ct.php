@@ -178,9 +178,13 @@ class ModelCatalogProductCt extends Model {
 		return $query->row;
 	}
 
-	public function getOptionValues($option_id) {
+	public function getOptionValues($option_id, $uniques = false) {
 		$option_value_data = array();
-		$sql = "SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) INNER JOIN " . DB_PREFIX . "option_value_color_talla ovct ON ov.option_value_id = ovct.option_value_id WHERE ov.option_id = '" . (int)$option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order ASC";
+		$sql = "SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) INNER JOIN " . DB_PREFIX . "option_value_color_talla ovct ON ov.option_value_id = ovct.option_value_id WHERE ov.option_id = '" . (int)$option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ";
+		if($uniques){
+			$sql .= " AND ovct.product_id = 0 ";
+		}
+		$sql .= " ORDER BY ovct.color_id, ovct.talla_id ASC";
 		$option_value_query = $this->db->query($sql);
 		
 		foreach ($option_value_query->rows as $option_value) {

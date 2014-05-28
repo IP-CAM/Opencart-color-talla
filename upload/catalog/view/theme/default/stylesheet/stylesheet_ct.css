@@ -1,0 +1,85 @@
+.product-info .options{
+}
+	.product-info .tallas{
+		margin-top: 20px;
+		display: block;
+	}
+		.product-info .options .tallas ul{
+			margin:0;
+			padding: 0;
+		}
+			.product-info .options .tallas ul li{
+				list-style-type: none;
+				display: inline-block;
+				margin:0;
+				padding: 0;
+				width: 33px;
+				border: 1px solid #B1B1B1;
+				margin-right: 2px;
+				margin-bottom: 2px;
+				text-align: center;
+			}
+				.product-info .options .tallas ul li a{
+					display: block;
+					font-family: arial;
+					font-size: 10px;
+					line-height: 18px;
+					height: 18px;
+					text-decoration: none;
+					color:#333;
+				}
+					.product-info .options .tallas ul li a.active{
+						border: 2px solid #777;
+						line-height: 15px;
+						height: 15px;
+					}
+					.product-info .options .tallas ul li.talla.nostock{
+						background-color: #E3E3E3;
+						cursor: default;
+					}
+					.product-info .options .tallas ul li.talla.nostock a{
+						color: #FFF;
+						/*border: solid 2px #FFF;*/
+					}
+	.product-info .colors .img{
+		width: 75px;		
+		float: left;
+	}
+		.product-info .options .colors span.color{
+			width:20px;
+			height: 20px;
+			display: inline-block;
+			border:2px solid #CCC;
+			cursor: pointer;
+		}
+			.product-info .options .colors span.active{
+				border:2px solid;
+			}
+
+.div-color_activo{
+	border:2px solid #777 !important;
+}
+
+
+li.talla.hide {
+	display: none !important;
+}
+
+.clear{
+	clear: both;
+}
+
+.product-info .colors{
+	height: 50px;
+	width: 100%;
+}
+			.product .colors span{
+				display: block;
+			}
+			.product .colors .img{
+				float: left;
+				margin-right: 4px;
+				margin-bottom: 6px;
+				margin-top: 10px;
+				border:2px solid #FFF;
+			}
