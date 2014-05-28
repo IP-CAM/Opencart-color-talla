@@ -99,7 +99,7 @@
         <?php if ($option['type'] == 'select_ct') { ?>
             <div class="tallas">
               <div id="option-<?php echo $option['product_option_id']; ?>" class="option alpha">
-                <input type="text" value="" name="option[<?php echo $option['product_option_id']; ?>]" id="option_selected">
+                <input type="hidden" value="" name="option[<?php echo $option['product_option_id']; ?>]" id="option_selected">
                 <ul class="tallas">
                   <?php
                     foreach ($colores as $color) { ?>
