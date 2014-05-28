@@ -373,7 +373,7 @@ class ModelCatalogProduct extends Model {
 		$product_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.sort_order");
 
 		foreach ($product_option_query->rows as $product_option) {
-			if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image') {
+			if ($product_option['type'] == 'select' || $product_option['type'] == 'select_ct' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image') {
 				$product_option_value_data = array();
 
 				$product_option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_id = '" . (int)$product_id . "' AND pov.product_option_id = '" . (int)$product_option['product_option_id'] . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order");
@@ -613,6 +613,92 @@ class ModelCatalogProduct extends Model {
 		} else {
 			return 0;	
 		}
+	}
+
+
+	/*! Colores Tallas | Sebastian Gonzalez Riffo */
+	public function getColoresByProduct($product_id,$manufacturer_id = 0){
+
+		$sql = "SELECT DISTINCT
+					ovct.color_id,
+					ov.image,
+					c.`name`,
+					c.manufacturer_id,
+					c.image as mini
+				FROM
+					" . DB_PREFIX . "option_value_color_talla AS ovct
+				INNER JOIN " . DB_PREFIX . "option_value AS ov ON ovct.option_value_id = ov.option_value_id
+				LEFT JOIN " . DB_PREFIX . "colors AS c ON ovct.color_id = c.code
+				WHERE
+					ovct.product_id = '".(int)$product_id."'
+				AND c.manufacturer_id = '".(int)$manufacturer_id."'
+				ORDER BY
+					ov.sort_order, ovct.color_id ASC";			
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+
+	public function getSizes($product_id,$color_id, $genero, $option_id){
+
+		if ($this->customer->isLogged()) {
+			$customer_group_id = $this->customer->getCustomerGroupId();
+		} else {
+			$customer_group_id = $this->config->get('config_customer_group_id');
+		}	
+
+		$sql = "SELECT
+					ovct.option_value_id,
+					ovct.product_id,
+					ovct.sku,
+					ovct.color_id,
+					ovct.talla_id,
+					t.talla_id,
+					t.`name`,
+					t.`sort_order` AS sort_order,
+					t.equivalencia,
+					pov.option_id,
+					pov.option_value_id,
+					pov.quantity,
+					pov.subtract,
+					pov.price,
+					(
+						SELECT
+							price
+						FROM
+							" . DB_PREFIX . "product_special ps
+						WHERE
+							ps.product_id = ovct.product_id
+						AND ps.customer_group_id = '".(int)$customer_group_id."'
+						 
+						AND (
+							(
+								ps.date_start = '0000-00-00'
+								OR ps.date_start < NOW()
+							)
+							AND (
+								ps.date_end = '0000-00-00'
+								OR ps.date_end > NOW()
+							)
+						)
+						ORDER BY
+							ps.priority ASC,
+							ps.price ASC
+						LIMIT 1
+					) AS special
+				FROM
+					" . DB_PREFIX . "option_value_color_talla AS ovct
+				INNER JOIN " . DB_PREFIX . "tallas AS t ON ovct.talla_id = t.talla_id
+				INNER JOIN " . DB_PREFIX . "product_option_value AS pov ON ovct.option_value_id = pov.option_value_id
+				WHERE 
+					ovct.product_id = '" . (int)$product_id . "'
+				AND ovct.color_id = '".$this->db->escape($color_id)."'
+				
+				AND pov.option_id = '".(int)$option_id."'
+				ORDER BY
+					sort_order ASC";
+		$query = $this->db->query($sql);
+		return $query->rows;
+
 	}
 }
 ?>

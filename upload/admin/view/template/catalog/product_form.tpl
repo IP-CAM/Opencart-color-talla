@@ -656,8 +656,8 @@
               </tfoot>
             </table>
             <select id="option-values_ct<?php echo $option_row_ct; ?>" style="display: none;">
-              <?php if (isset($option_values_ct[$product_option['option_id']])) { ?>
-              <?php foreach ($option_values_ct[$product_option['option_id']] as $option_value) { ?>
+              <?php if (isset($option_values_ct_uniques[$product_option['option_id']])) { ?>
+              <?php foreach ($option_values_ct_uniques[$product_option['option_id']] as $option_value) { ?>
               <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['barcode']; ?> | <?php echo $option_value['name']; ?></option>
               <?php } ?>
               <?php } ?>
@@ -1356,7 +1356,6 @@ function addOptionValue(option_row) {
 var option_value_row_ct = <?php echo $option_value_row_ct; ?>;
 
 function addOptionValueCT(option_row) {	
-  alert(option_row);
 	html  = '<tbody id="option-value-row' + option_value_row_ct + '">';
 	html += '  <tr>';
 	html += '    <td class="left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row_ct + '][option_value_id]">';

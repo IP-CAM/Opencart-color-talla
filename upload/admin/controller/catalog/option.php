@@ -429,7 +429,7 @@ class ControllerCatalogOption extends Controller {
 			}
 		}
 
-		if (($this->request->post['type'] == 'select' || $this->request->post['type'] == 'radio' || $this->request->post['type'] == 'checkbox') && !isset($this->request->post['option_value'])) {
+		if (($this->request->post['type'] == 'select' || $this->request->post['type'] == 'select_ct' || $this->request->post['type'] == 'radio' || $this->request->post['type'] == 'checkbox') && !isset($this->request->post['option_value'])) {
 			$this->error['warning'] = $this->language->get('error_type');
 		}
 
