@@ -304,18 +304,31 @@ class ControllerCatalogProductColor extends Controller {
   	protected function getForm() {
     	
     	$this->data['heading_title'] = $this->language->get('heading_title');
- 
- 		if (isset($this->error['warning'])) {
-			$this->data['error_warning'] = $this->error['warning'];
+
+ 		if (!empty($this->error['code'])) {
+			$this->data['error_warning'] = "* ". implode("<br/> * ", $this->error);
 		} else {
 			$this->data['error_warning'] = '';
+		}
+
+		if (isset($this->error['code'])) {
+			$this->data['error_code'] = $this->error['code'];
+		} else {
+			$this->data['error_code'] = '';
 		}
 
  		if (isset($this->error['name'])) {
 			$this->data['error_name'] = $this->error['name'];
 		} else {
-			$this->data['error_name'] = array();
+			$this->data['error_name'] = '';
 		}
+
+		if (isset($this->error['manufacturer_id'])) {
+			$this->data['error_manufacturer'] = $this->error['manufacturer_id'];
+		} else {
+			$this->data['error_manufacturer'] = '';
+		}
+
 
 		$url = '';
 
