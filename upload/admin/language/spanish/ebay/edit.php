@@ -1,0 +1,32 @@
+<?php
+$_['lang_title']                    = 'OpenBay Pro';
+$_['lang_page_title']               = 'Revisar Listado de eBay';
+$_['lang_home']                     = 'Inicio';
+$_['lang_save']                     = 'Guardar';
+$_['lang_ebay']                     = 'eBay';
+$_['lang_pageaction']               = 'Revisar Listado';
+$_['lang_view']                     = 'Ver Listado';
+$_['lang_remove']                   = 'Remover Enlace';
+$_['lang_end']                      = 'Finalizar Listado';
+$_['lang_cancel']                   = 'Cancelar';
+$_['lang_loading']                  = 'Obtener info de Artículo desde eBay';
+$_['lang_retry']                    = 'Reintentar';
+$_['lang_error_loading']            = 'Hubo un Error obteniendo la info desde eBay';
+$_['lang_saved']                    = 'Listado ha sido guardado';
+$_['lang_tbl_title']                = 'Reintentar';
+$_['lang_tbl_price']                = 'Precio<span class="help">Incluye Impuesto</span>';
+$_['lang_tbl_qty_instock']          = 'Nivel de Inventario Local<span class="help">Este es el nivel de Inventario en Opencart</span>';
+$_['lang_tbl_qty_listed']           = 'Cantidad en eBay<span class="help">Este es el nivel actual de Inventario en eBay</span>';
+$_['lang_tbl_qty_reserve']          = 'Nivel de Reserva<span class="help">Este es el nivel maximo de Inventario en eBay (0 = sin limite de reserva)</span>';
+$_['lang_alert_removed']            = 'El Listado ha sido desenlazado';
+$_['lang_alert_ended']              = 'El Listado ha sido finalizado en eBay';
+$_['lang_confirm']                  = 'Estas segur@?';
+
+$_['lang_stock_matrix']             = 'Inventario matrix';
+$_['lang_stock_col_qty_total']      = 'Disponible';
+$_['lang_stock_col_qty']            = 'Listar';
+$_['lang_stock_col_qty_reserve']    = 'Reservado';
+$_['lang_stock_col_comb']           = 'Combinacion';
+$_['lang_stock_col_price']          = 'Precio';
+$_['lang_stock_col_enabled']        = 'Habilitar';
+$_['lang_qty']                      = 'Cantidad a listar<span class="help">Introducir el monto minimo de Inventario que deseas mantener en eBay</span>';

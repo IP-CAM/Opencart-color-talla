@@ -1,0 +1,23 @@
+<?php
+$_['lang_title']                    = 'OpenBay Pro para Amazon US | Mi Cuenta';
+$_['lang_my_account']               = 'Mi Cuenta';
+$_['lang_openbay']                  = 'OpenBay Pro';
+$_['lang_overview']                 = 'Amazon US General';
+$_['lang_my_account']               = 'Mi Cuenta';
+$_['lang_btn_return']               = 'Cancelar';
+$_['lang_current_plan']             = 'Plan actual';
+$_['lang_register_invite']          = "No tienes Credenciales? Registrate ahora para obtenerlas";
+$_['lang_register']                 = 'Registrar';
+$_['lang_loading']                  = 'Cargando';
+$_['lang_change_plans']             = 'Cambiar Plan';
+$_['lang_your_plan']                = 'Tu Plan actual y balance de Cuenta';
+$_['lang_change_plan']              = 'Cambiar Plan';
+$_['lang_change_plans_help']        = 'No estas satisfecho con tu Plan actual?';
+$_['lang_name']                     = 'Nombre';
+$_['lang_description']              = 'Descripcion';
+$_['lang_price']                    = 'Precio';
+$_['lang_order_frequency']          = 'Frecuencia de importacion de Ordenes';
+$_['lang_product_listings']         = 'Nuevo Producto Listados por mes';
+$_['lang_listings_remaining']       = 'Producto Listados restantes';
+$_['lang_listings_reserved']        = 'Productos estan siendo procesados';
+$_['lang_account_status']           = 'Estado de Cuenta';
