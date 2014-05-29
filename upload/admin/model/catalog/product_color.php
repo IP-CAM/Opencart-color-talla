@@ -105,12 +105,7 @@ class ModelCatalogProductColor extends Model {
 
 	public function addColor($data){
 		$sql = "INSERT INTO " . DB_PREFIX . "colors set code = '".$data['code']."', name = '".$this->db->escape($data['name'])."', image = '".$this->db->escape($data['image'])."', manufacturer_id = '".$this->db->escape($data['manufacturer_id'])."'";
-		$query = $this->db->query($sql);
-			echo '<pre style="background-color: #FFFFCB; color: #135092; margin:0px">'; 
-				print_r($query); 
-			echo '</pre>'; 
-			//die();
-
+		$this->db->query($sql);
 	}
 
 	public function deleteColor($code){
