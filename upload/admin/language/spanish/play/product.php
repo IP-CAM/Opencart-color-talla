@@ -1,0 +1,23 @@
+<?php
+$_['lang_product_name']                     = 'Precio de Producto';
+$_['lang_save']                             = 'Guardar';
+$_['lang_cancel']                           = 'Cancelar';
+$_['lang_delete']                           = 'Borrar';
+$_['lang_page_title']                       = 'Nuevo Producto Play.com';
+$_['lang_page_title_edit']                  = 'Editar Producto Play.com';
+$_['lang_product_id']                       = 'ID de Producto<span class="help">Sin guiones o espacios</span>';
+$_['lang_product_dispatch_to']              = 'Enviar a';
+$_['lang_product_id_type']                  = 'Tipo de ID de Producto<span class="help">ISBN puede ser 10 o 13 caracteres</span>';
+$_['lang_price_uk']                         = 'Precio a UK<span class="help">Incluye Envio &amp; Impuesto</span>';
+$_['lang_price_euro']                       = 'Precio a Europa<span class="help">Incluye Envio &amp; Impuesto</span>';
+$_['lang_quantity']                         = 'Cantidad';
+$_['lang_condition']                        = 'Condicion';
+$_['lang_comment']                          = 'Comentario';
+$_['lang_product_dispatch_fr']              = 'Enviado desde';
+$_['lang_text_success']                     = 'Tu Producto ha sido agregado';
+$_['lang_text_success_updated']             = 'Tu Producto sera actualizado en el Mercado Play.com en la siguiente actualizacion';
+$_['lang_text_success_deleted']             = 'Tu Producto sera borrado del el Mercado Play.com en la siguiente actualizacion';
+$_['lang_error_min_price']                  = 'Precio GBP debe ser &pound;0.98 o mas, y hasta &pound;3000';
+$_['lang_error_max_price']                  = 'Precio GBP debe ser &pound;0.98 o mas, y hasta &pound;3000';
+$_['lang_error_min_price_eu']               = 'Precio EURO debe ser &euro;1.59 o mas, y hasta &euro;5000';
+$_['lang_error_max_price_eu']               = 'Precio GBP debe ser &euro;1.59 o mas, y hasta &euro;5000';

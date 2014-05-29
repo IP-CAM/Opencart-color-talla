@@ -22,12 +22,16 @@
 			<table class="form">
 				<tbody>
 					<tr>
-						<td>Cod Color</td>
-						<td><input type="text" value="<?php echo $code;?>" name="code"></td>
+						<td><span class="required">*</span> Cod Color</td>
+						<td><input type="text" value="<?php echo $code;?>" name="code">
+						<?php if($error_code){ ?><span class="error"><?php echo $error_code; ?></span><?php } ?>
+						</td>
 					</tr>
 					<tr>
-						<td>Nombre</td>
-						<td><input type="text" value="<?php echo $name;?>" name="name"></td>
+						<td><span class="required">*</span> Nombre</td>
+						<td><input type="text" value="<?php echo $name;?>" name="name">
+						<?php if($error_name){ ?><span class="error"><?php echo $error_name; ?></span><?php } ?>
+						</td>
 					</tr>
 					<tr>
 						<td>Imagen</td>
@@ -53,6 +57,7 @@
 									<?php endif; ?>
 								<?php } ?>
 							</select>
+							<?php if($error_manufacturer){ ?><span class="error"><?php echo $error_manufacturer; ?></span><?php } ?>
 						</td>
 					</tr>
 				</tbody>

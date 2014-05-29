@@ -1,0 +1,27 @@
+<?php
+$_['lang_title']                    = 'OpenBay Pro para Amazon US | Enlaces de Artículo';
+$_['lang_openbay']                  = 'OpenBay Pro';
+$_['lang_overview']                 = 'Amazon US General';
+$_['lang_btn_return']               = 'Devolución';
+$_['lang_link_items']               = 'Enlazar Artículos';
+$_['lang_item_links']               = 'Enlaces de Artículo';
+$_['lang_desc1']                    = 'Enlazar tus Artículos te permitira controlar tu Inventario en Listados de tu Amazon US.<br /> Por cada Artículo que es actualizado el Inventario Local (el Inventario disponible en tu Tienda OpenCart) actualizara tu Listado de Amazon US';
+$_['lang_desc2']                    = 'Puedes enlazar manualmente introduciendo el SKU de Amazon y el nombre del Producto o cargar todos los Productos desenlazados y entonces introducir los SKUs de Amazon US. (Cargando Productos desde OpenCart a AmazonUS automaticamente agregara los Enlaces)';
+$_['lang_load_btn']                 = 'Cargar';
+$_['lang_new_link']                 = 'Nuevo Enlace';
+$_['lang_autocomplete_product']     = 'Producto<span class="help">(Autocompletar desde Nombre)</span>';
+$_['lang_amazonus_sku']             = 'SKU de Artículo Amazon';
+$_['lang_action']                   = 'Modificar';
+$_['lang_add']                      = 'Agregar';
+$_['lang_add_sku_tooltip']          = 'Agregar otro SKU';
+$_['lang_remove']                   = 'Remover';
+$_['lang_linked_items']             = 'Artículos enlazados';
+$_['lang_unlinked_items']           = 'Artículos desenlazados';
+$_['lang_name']                     = 'Nombre';
+$_['lang_model']                    = 'Modelo';
+$_['lang_combination']              = 'Combinación';
+$_['lang_sku']                      = 'SKU';
+$_['lang_amazonus_sku']             = 'SKU de Artículo Amazon';
+$_['lang_sku_empty_warning']        = 'Amazon SKU no puede estar vacio!';
+$_['lang_name_empty_warning']       = 'Nombre de Producto no puede estar vacio!';
+$_['lang_product_warning']          = 'Producto no existe. Favor de usar valores de autocompletacion';
