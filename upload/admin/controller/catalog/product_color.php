@@ -28,6 +28,7 @@ class ControllerCatalogProductColor extends Controller {
 			$url = '';
 				
 			$this->redirect($this->url->link('catalog/product_color', 'token=' . $this->session->data['token'] . $url, 'SSL'));
+
     	}
 	
     	$this->getForm();
@@ -40,7 +41,7 @@ class ControllerCatalogProductColor extends Controller {
 		
 		$this->load->model('catalog/product_color');
 	
-    	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+    	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm(true)) {
 
 			$this->model_catalog_product_color->editColor($this->request->get['code'], $this->request->post);
 			
@@ -423,13 +424,20 @@ class ControllerCatalogProductColor extends Controller {
 		$this->response->setOutput($this->render());
   	} 
 	
-  	protected function validateForm() { 
-    	if (!$this->user->hasPermission('modify', 'catalog/product')) {
+  	protected function validateForm($edit = false) { 
+
+    	if (!$this->user->hasPermission('modify', 'catalog/product_color')) {
       		$this->error['warning'] = $this->language->get('error_permission');
     	}
 
     	if ((utf8_strlen($this->request->post['code']) < 1) || (utf8_strlen($this->request->post['code']) > 64)) {
       		$this->error['code'] = 'Codigo requerido';
+    	}
+
+    	if(!$edit){
+	    	if($this->model_catalog_product_color->getCountColor($this->request->post['code']) > 0){
+	    		$this->error['warning'] = 'El Color ya ha sido agregado en la base de datos. #Verifique el código usado';
+	    	}
     	}
 
     	if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 64)) {
@@ -448,7 +456,7 @@ class ControllerCatalogProductColor extends Controller {
   	}
 	
   	protected function validateDelete() {
-    	if (!$this->user->hasPermission('modify', 'catalog/product')) {
+    	if (!$this->user->hasPermission('modify', 'catalog/product_color')) {
       		$this->error['warning'] = $this->language->get('error_permission');  
     	}
 		
@@ -460,7 +468,7 @@ class ControllerCatalogProductColor extends Controller {
   	}
   	
   	protected function validateCopy() {
-    	if (!$this->user->hasPermission('modify', 'catalog/product')) {
+    	if (!$this->user->hasPermission('modify', 'catalog/product_color')) {
       		$this->error['warning'] = $this->language->get('error_permission');  
     	}
 		
