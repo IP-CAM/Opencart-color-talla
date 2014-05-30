@@ -252,7 +252,7 @@ class ModelCatalogProductCt extends Model {
 
 	public function getOptionValueInfo($option_value_id){
 
-		$sql = "SELECT * FROM pixel_option_value AS ov INNER JOIN pixel_option_value_color_talla AS ovct ON ov.option_value_id = ovct.option_value_id WHERE ov.option_value_id = '".(int)$option_value_id."'";
+		$sql = "SELECT * FROM " . DB_PREFIX ."option_value AS ov INNER JOIN " . DB_PREFIX ."option_value_color_talla AS ovct ON ov.option_value_id = ovct.option_value_id WHERE ov.option_value_id = '".(int)$option_value_id."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 
