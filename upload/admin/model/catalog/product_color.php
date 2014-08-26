@@ -3,7 +3,7 @@ class ModelCatalogProductColor extends Model {
 
 	public function getColores($data){
 
-		$sql = "SELECT c.code, c.name, c.image, c.manufacturer_id, m.name as manufacturer_name from ".DB_PREFIX."colors c JOIN ".DB_PREFIX."manufacturer m on m.manufacturer_id = c.manufacturer_id";
+		$sql = "SELECT c.code, c.name, c.image, c.manufacturer_id, m.name as manufacturer_name from " . DB_PREFIX . "colors c JOIN " . DB_PREFIX . "manufacturer m on m.manufacturer_id = c.manufacturer_id";
 
 		$sql .= " WHERE c.language_id = '" . (int)$this->config->get('config_language_id') . "'"; 
 
@@ -78,26 +78,38 @@ class ModelCatalogProductColor extends Model {
 
 
 	public function getColor($color_id){
-		$sql = "SELECT * from ".DB_PREFIX."colors where code = '".$color_id."'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "colors where code = '".$color_id."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}
 
 
+	public function getCountColor($color_id){
+		$sql = "SELECT count(*) as total from " . DB_PREFIX . "colors where code = '".$color_id."'";
+		$query = $this->db->query($sql);
+
+		if($query->num_rows){
+			return $query->row['total'];
+		} else {
+			return 0;
+		}
+
+	}
+
+
 
 	public function editColor($code, $data){
-		$sql = "UPDATE ".DB_PREFIX."colors set name='".$data['name']."', image = '".$data['image']."', manufacturer_id = '".$data['manufacturer_id']."' where code = '".$code."' limit 1";
+		$sql = "UPDATE " . DB_PREFIX . "colors set name='".$data['name']."', image = '".$data['image']."', manufacturer_id = '".$data['manufacturer_id']."' where code = '".$code."' limit 1";
 		$this->db->query($sql);
 	}
 
 	public function addColor($data){
-		$sql = "INSERT INTO ".DB_PREFIX."colors set code = '".$data['code']."', name = '".$this->db->escape($data['name'])."', image = '".$this->db->escape($data['image'])."', manufacturer_id = '".$this->db->escape($data['manufacturer_id'])."'";
+		$sql = "INSERT INTO " . DB_PREFIX . "colors set code = '".$data['code']."', name = '".$this->db->escape($data['name'])."', image = '".$this->db->escape($data['image'])."', manufacturer_id = '".$this->db->escape($data['manufacturer_id'])."'";
 		$this->db->query($sql);
-
 	}
 
 	public function deleteColor($code){
-		$this->db->query("DELETE FROM ".DB_PREFIX."colors where code = '".$code."'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "colors where code = '".$code."'");
 	}
 }
 ?>

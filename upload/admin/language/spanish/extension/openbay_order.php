@@ -1,0 +1,21 @@
+<?php
+$_['lang_btn_status']           = 'Cambiar Estado';
+$_['lang_order_channel']        = 'Canal de Orden';
+$_['lang_confirmed']            = 'Ordenes han sido marcadas';
+$_['lang_no_orders']            = 'No se seleccionaron Ordenes para actualización';
+$_['lang_confirm_title']        = 'Revisar estado de actualización masiva';
+$_['lang_confirm_change_text']  = 'Cambiando estado de Orden a';
+$_['lang_column_addtional']     = 'Info adicional';
+$_['lang_column_comments']      = 'Comentarios';
+$_['lang_column_notify']        = 'Notificar';
+$_['lang_carrier']              = 'Mensajeria';
+$_['lang_tracking']             = 'Rastreando';
+$_['lang_other']                = 'Otro';
+$_['lang_refund_reason']        = 'Razón de Devolución';
+$_['lang_refund_message']       = 'Mensaje de Devolución';
+$_['lang_update']               = 'Actualizar';
+$_['lang_cancel']               = 'Cancelar';
+$_['lang_e_ajax_1']             = 'A una Orden le falta un Mensaje de Devolución!';
+$_['lang_e_ajax_2']             = 'A una Orden le falta info de rastreo!';
+$_['lang_e_ajax_3']             = 'Una Orden de  Amazon le falta la entrada "Otra Mensajeria"!';
+$_['lang_title_order_update']   = 'Actualización masiva de Ordenes';

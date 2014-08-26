@@ -1,0 +1,43 @@
+<?php
+$_['lang_page_title']               = 'Listado Masivo';
+
+$_['lang_cancel']                   = 'Cancelar';
+$_['lang_none']                     = 'Ninguno';
+$_['lang_preview']                  = 'Previsualizar';
+$_['lang_pixels']                   = 'Pixeles';
+$_['lang_yes']                      = 'Si';
+$_['lang_no']                       = 'No';
+$_['lang_add']                      = 'Agregar';
+$_['lang_remove']                   = 'Remover';
+$_['lang_save']                     = 'Guardar';
+$_['lang_other']                    = 'Otro';
+$_['lang_select']                   = 'Seleccionar';
+
+$_['lang_profile_theme']            = 'Perfil de Tema:';
+$_['lang_profile_shipping']         = 'Perfil de Envio:';
+$_['lang_profile_returns']          = 'Perfil de Devolucion:';
+$_['lang_profile_generic']          = 'Perfil Generico:';
+$_['lang_condition']                = 'Condicion:';
+$_['lang_duration']                 = 'Duracion:';
+$_['lang_category']                 = 'Categoría:';
+$_['lang_preview_all']              = 'Verificar todos';
+$_['lang_error_variants']           = 'Artículos con variaciones no pueden listarse masivamente y han sido deseleccionados';
+$_['lang_error_stock']              = 'Algunos Artículos no estan en Inventario y han sido removidos';
+$_['lang_exists']                   = 'Algunos Artículos ya estan listados en eBay asi que han sido removidos';
+$_['lang_error_count']              = 'Has seleccionado %s Artículos, tomara un rato procesar tus datos';
+$_['lang_error_ship_profile']       = 'Necesitas tener una configuracion default de Perfil de Envio';
+$_['lang_error_generic_profile']    = 'Necesitas tener una configuracion default de Perfil Generico';
+$_['lang_error_return_profile']     = 'Necesitas tener una configuracion default de return Perfil de Devolucion';
+$_['lang_error_theme_profile']      = 'Necesitas tener una configuracion default de Perfil de Tema';
+$_['lang_verifying']                = 'Verificando Artículos';
+$_['lang_processing']               = 'Procesando <span id="activeItems"></span> Artículos';
+$_['lang_listed']                   = 'Artículo listado! ID: ';
+$_['lang_view']                     = 'Ver Listado';
+$_['lang_error_no_product']         = 'No hay Productos elegibles seleccionados para usar la funcion carga masiva';
+$_['lang_ajax_confirm_listing']     = 'Estas segur@ que deseas listar masivamente estos Artículos?';
+$_['lang_bulk_plan_error']          = 'Tu Plan actual no permite cargas masivas, incrementa tu Plan <a href="%s">aqui</a>';
+$_['lang_item_limit']               = 'No puedes listar estos Artículos ya que excederas el limite de tu Plan, incrementa tu Plan <a href="%s">aqui</a>';
+$_['lang_search_text']              = 'Introducir algun termino de busqueda';
+$_['lang_catalog_no_products']      = 'No se encontro Artículos de Catalogo';
+$_['lang_search_failed']            = 'Fallo Busqueda';
+$_['lang_esc_key']                  = 'La Pagina inicial ha sido ocultada pero aun sigue cargando hasta que termine';
